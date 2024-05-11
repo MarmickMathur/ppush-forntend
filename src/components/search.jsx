@@ -1,8 +1,9 @@
 import { useState, useEffect } from "react";
+import { motion, AnimatePresence, easeInOut } from "framer-motion";
 import axios from "axios";
 
 const Search = ({ setterm }) => {
-  const [input, setInput] = useState("lover boy");
+  const [input, setInput] = useState("");
   const [rec, setrec] = useState([]);
 
   const onInputChange = (e) => {
@@ -35,33 +36,52 @@ const Search = ({ setterm }) => {
   let recs = [];
   recs = rec.map((item, index) => {
     return (
-      <input
-        key={index}
-        className="input p-2  rounded-b-md w-1/2 border-2 border-black"
-        value={item}
-        onClick={() => {
-          // console.log(item);
-          setterm(item);
-          setrec([]);
-          setInput("");
-        }}
-      />
+      <li key={index}>
+        <input
+          key={index}
+          className="input p-2 w-full  border-b-2 border-gray-500"
+          value={item}
+          onClick={() => {
+            // console.log(item);
+            setterm(item);
+            setrec([]);
+            setInput("");
+          }}
+        />
+      </li>
     );
   });
 
   return (
-    <div className=" w-9/12">
-      <form className="ui form">
-        <div>
-          <label className="pr-10"> enter the search term</label>
-          <input
-            className="input p-2  rounded-t-md w-1/2 border-2 border-black"
-            value={input}
-            onChange={onInputChange}
-          />
-          <ul className="absolute">{recs}</ul>
-        </div>
-      </form>
+    <div className="flex align-middle  w-72 items-center ">
+      <div className="w-full">
+        <form className="w-full">
+          <div className="w-full">
+            <input
+              className="input p-2   rounded-md w-full border-2 border-gray-500"
+              value={input}
+              onChange={onInputChange}
+              placeholder="search"
+            />
+            <AnimatePresence>
+              {recs.length != 0 && (
+                <motion.ul
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{
+                    duration: 0.5,
+                    ease: easeInOut,
+                  }}
+                  exit={{ opacity: 0 }}
+                  className=" rounded-b-md border-2   border-gray-500 z-50  absolute"
+                >
+                  {recs}
+                </motion.ul>
+              )}
+            </AnimatePresence>
+          </div>
+        </form>
+      </div>
     </div>
   );
 };

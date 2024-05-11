@@ -1,5 +1,6 @@
 import DropDown from "./dropdown";
 import { useEffect, useState } from "react";
+import { motion } from "framer-motion";
 import list from "../../test assets/output.json";
 
 // console.log(list);
@@ -42,7 +43,7 @@ const Leftnav = ({ ontagchange }) => {
       >
         <div className="overflow-y-auto py-5 px-3 h-full bg-white border-r border-gray-200 dark:bg-gray-800 dark:border-gray-700">
           <ul className="space-y-2">
-            <li>
+            <motion.li layout>
               <DropDown
                 key={"playlists"}
                 options={artist}
@@ -50,8 +51,8 @@ const Leftnav = ({ ontagchange }) => {
                 label={"playlist"}
                 onSelectedChange={setplaylist}
               />
-            </li>
-            <li>
+            </motion.li>
+            <motion.li layout>
               <DropDown
                 key={"mylib"}
                 options={gnr}
@@ -59,9 +60,9 @@ const Leftnav = ({ ontagchange }) => {
                 label={"genre"}
                 onSelectedChange={setganre}
               />
-            </li>
+            </motion.li>
 
-            <li>
+            <motion.li layout>
               <DropDown
                 key={"mylib"}
                 options={gnr}
@@ -69,7 +70,7 @@ const Leftnav = ({ ontagchange }) => {
                 label={"artist"}
                 onSelectedChange={setganre}
               />
-            </li>
+            </motion.li>
           </ul>
         </div>
       </aside>

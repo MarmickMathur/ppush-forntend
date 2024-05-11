@@ -1,34 +1,23 @@
 import { useEffect, useState } from "react";
 import Leftnav from "./components/leftnav";
 import Topnav from "./components/topnav";
+import Songqueue from "./components/queue";
 import Songlist from "./components/songlist";
 import Musicsplitter from "./components/musicsplitter";
-// import Authbutton from "./components/Login";
-import { UserProvider } from "./context/user";
-import axios from "axios";
 import Addsong from "./components/songAdd";
-import Addsongform from "./components/addsongform";
+import { easeInOut, motion, MotionConfig } from "framer-motion";
 
 function App() {
   const [tags, settags] = useState([]);
-  const [song, setsong] = useState({});
   const [term, seterm] = useState("");
+  const [qsongs, setqsongs] = useState([]);
 
-  // useEffect(() => {
-  //   const getuser = async () => {
-  //     console.log("inside get user");
-  //     const res = await axios.get(
-  //       "https://ppusher-backend.onrender.com/auth/google",
-  //       {
-  //         withCredentials: true,
-  //       }
-  //     );
-  //     console.log(res);
-
-  //     // console.log(res);
-  //   };
-  //   getuser();
-  // }, []);
+  const updateqsongs = (song) => {
+    const temp = qsongs;
+    console.log("temp is", temp);
+    temp.push(song);
+    setqsongs(temp);
+  };
 
   useEffect(() => {
     if (term != "") {
@@ -38,24 +27,44 @@ function App() {
 
   return (
     <>
-      <UserProvider>
-        <div className="w-screen h-screen">
-          <div className="relative">
-            <Topnav ontagchange={settags} setterm={seterm} />
-          </div>
-          <div className="grid grid-cols-12 gap-0">
-            <div className="col-span-3">
-              <Leftnav ontagchange={settags} />
-            </div>
-            <div className="col-span-5">
-              <Songlist tags={tags} term={term} onsongchange={setsong} />
-            </div>
-            <div className="col-span-4 flex align-middle">
-              <Musicsplitter song={song} />
-            </div>
-          </div>
+      <div className="w-screen h-screen">
+        <div className="relative">
+          <Topnav ontagchange={settags} setterm={seterm} />
         </div>
-      </UserProvider>
+        <MotionConfig transition={{ duration: 0.8, ease: easeInOut }}>
+          <div className="grid grid-cols-12 gap-0">
+            <motion.div
+              whileHover={{
+                scale: 1.02,
+              }}
+              className="col-span-3"
+            >
+              <Leftnav ontagchange={settags} />
+            </motion.div>
+            <motion.div
+              whileHover={{
+                scale: 1.02,
+              }}
+              className=" border-2  border-gray-100 col-span-5"
+            >
+              <Songlist tags={tags} term={term} onsongchange={updateqsongs} />
+            </motion.div>
+            <motion.div
+              whileHover={{
+                scale: 1.02,
+              }}
+              className="col-span-4 flex align-middle"
+            >
+              <div>
+                <Addsong />
+              </div>
+              <div>
+                <Songqueue qsongs={qsongs} />
+              </div>
+            </motion.div>
+          </div>
+        </MotionConfig>
+      </div>
     </>
   );
 }

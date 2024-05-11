@@ -6,7 +6,6 @@ const Songlist = ({ tags, term, onsongchange }) => {
   const [songs, setsongs] = useState([]);
 
   const searchterm = async () => {
-    console.log(1);
     if (term != "") {
       const { data } = await axios.post(
         `https://ppushermusicsuggestion.onrender.com/recommend`,
@@ -19,6 +18,9 @@ const Songlist = ({ tags, term, onsongchange }) => {
           },
         }
       );
+      data.recommendations.push(term);
+      data.recommendations.reverse();
+      data.recommendations.splice(Math.min(data.recommendations.length, 10));
       setsongs(data.recommendations);
     }
   };
@@ -85,15 +87,13 @@ const Songlist = ({ tags, term, onsongchange }) => {
 
   console.log(songs);
   const songlist = songs.map((song, index) => {
-    return (
-      <Listitem action1={onsongchange} index={index} key={index} song={song} />
-    );
+    return <Listitem action1={onsongchange} key={index} song={song} />;
   });
 
   return (
     <>
-      <div className="list">
-        <ul className=" font-medium text-gray-900 bg-white border border-gray-200  dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+      <div className="list h-full">
+        <ul className=" font-medium text-gray-900  dark:text-white">
           {songlist}
         </ul>
       </div>

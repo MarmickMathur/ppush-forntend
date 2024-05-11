@@ -1,14 +1,8 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 
-const pl = [
-  { name: "new playlist" },
-  { name: "new playlist" },
-  { name: "new playlist" },
-];
-
 const Modalist = ({ song }) => {
-  const [playlist, setplaylist] = useState(pl);
+  const [playlist, setplaylist] = useState([]);
   const [opts, setopts] = useState([]);
   const [inputValue, setInputValue] = useState("");
 
@@ -17,13 +11,31 @@ const Modalist = ({ song }) => {
   };
 
   const getres = async () => {
-    const res = await axios.get("http://localhost:8000/playlist");
-    // console.log(res);
-    // setplaylist(res);
+    const { data } = await axios.get(
+      "https://ppusherfinalbackend.onrender.com/playlist"
+    );
+    console.log(data.publicPlaylists);
+
+    const temp = [];
+    let ind = 0;
+    while (temp.length <= 10 && ind < data.publicPlaylists.length) {
+      temp.push(data.publicPlaylists[ind]);
+      ind++;
+    }
+    console.log("temp is", temp);
+    setplaylist(temp);
   };
 
   const addres = async () => {
-    const res = await axios.post("http://localhost:8000/playlist"); //using input value
+    const res = await axios.post(
+      "https://ppusherfinalbackend.onrender.com/user/playlist",
+      {
+        name: "test",
+        song: "testsong",
+        public: true,
+      }
+    ); //using input value
+    console.log(res);
   };
 
   useEffect(() => {
@@ -52,20 +64,26 @@ const Modalist = ({ song }) => {
   return (
     <>
       <div className="list">
-        <ul className=" font-medium text-gray-900 bg-white border border-gray-200  dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+        <ul className="font-medium text-gray-900 bg-white border border-gray-200 dark:bg-gray-700 dark:border-gray-600 dark:text-white">
           {Listitems}
-          <li>
+          <li className="border-b border-gray-200 dark:border-gray-600 py-2 px-4">
             <div className="w-11/12">
               <input
                 type="text"
                 value={inputValue}
                 onChange={handleChange}
                 placeholder="Enter text here"
-              />{" "}
+                className="w-full px-3 py-2 placeholder-gray-400 rounded-lg shadow-sm focus:outline-none focus:ring focus:ring-blue-500 focus:ring-opacity-50"
+              />
             </div>
           </li>
         </ul>
-        <button onClick={addnewplaylist}>add new playlist</button>
+        <button
+          onClick={addnewplaylist}
+          className="block mt-4 mx-auto bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+        >
+          Add New Playlist
+        </button>
       </div>
     </>
   );
