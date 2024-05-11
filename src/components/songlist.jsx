@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import Listitem from "./listcomp";
 
-const Songlist = ({ tags, term, onsongchange }) => {
+const Songlist = ({ tags, term, qsongs, onsongchange }) => {
   const [songs, setsongs] = useState([]);
 
   const searchterm = async () => {
@@ -87,8 +87,16 @@ const Songlist = ({ tags, term, onsongchange }) => {
 
   console.log(songs);
   const songlist = songs.map((song, index) => {
-    return <Listitem action1={onsongchange} key={index} song={song} />;
+    return (
+      <Listitem
+        action1={onsongchange}
+        qsongs={qsongs}
+        key={index}
+        song={song}
+      />
+    );
   });
+  console.log("songlist -> listComp" , qsongs)
 
   return (
     <>

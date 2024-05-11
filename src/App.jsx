@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import Leftnav from "./components/leftnav";
 import Topnav from "./components/topnav";
-import Songqueue from "./components/queue";
+import SongQueue from "./components/songqueue";
 import Songlist from "./components/songlist";
 import Musicsplitter from "./components/musicsplitter";
 import Addsong from "./components/songAdd";
@@ -12,18 +12,12 @@ function App() {
   const [term, seterm] = useState("");
   const [qsongs, setqsongs] = useState([]);
 
-  const updateqsongs = (song) => {
-    const temp = qsongs;
-    console.log("temp is", temp);
-    temp.push(song);
-    setqsongs(temp);
-  };
-
   useEffect(() => {
     if (term != "") {
       settags([]);
     }
   }, [term]);
+  console.log("APP" , qsongs);
 
   return (
     <>
@@ -47,7 +41,12 @@ function App() {
               }}
               className=" border-2  border-gray-100 col-span-5"
             >
-              <Songlist tags={tags} term={term} onsongchange={updateqsongs} />
+              <Songlist
+                tags={tags}
+                term={term}
+                qsongs={qsongs}
+                onsongchange={setqsongs}
+              />
             </motion.div>
             <motion.div
               whileHover={{
@@ -59,7 +58,7 @@ function App() {
                 <Addsong />
               </div>
               <div>
-                <Songqueue qsongs={qsongs} />
+                <SongQueue songs={qsongs} />
               </div>
             </motion.div>
           </div>

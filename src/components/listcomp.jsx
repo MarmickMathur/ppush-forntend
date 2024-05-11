@@ -1,12 +1,17 @@
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import PlayModal from "./modal";
 import { motion } from "framer-motion";
 import { FaRegCirclePlay } from "react-icons/fa6";
 import { BsArrowDownCircleFill } from "react-icons/bs";
+import { songContext } from "../context/song";
 
-const Listitem = ({ song, action1 }) => {
+const Listitem = ({ song, action1, qsongs }) => {
+  const { songList, setSongList } = useContext(songContext);
   const [openModal, setOpenModal] = useState(false);
-
+  // useEffect(() => {
+  //   setSongList(qsongs);
+  //   console.log("Change gua ")
+  // } , [qsongs])
   // console.log(index);
 
   return (
@@ -34,7 +39,13 @@ const Listitem = ({ song, action1 }) => {
 
         <div
           onClick={() => {
-            action1(song);
+            const temp = qsongs;
+            temp.push(song);
+            console.log("inside listComp", temp);
+            action1(temp);
+            console.log("after setting", temp);
+            console.log("songs", qsongs);
+            setSongList(temp);
           }}
           className=" w-2/12"
         >
