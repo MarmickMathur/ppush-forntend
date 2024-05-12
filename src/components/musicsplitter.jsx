@@ -1,11 +1,9 @@
 import { useEffect, useState, useRef } from "react";
 import AudioPlayer from "./Try";
 
-const Peerplayer = (song) => {
+const Peerplayer = ({ cursong, qsongs, onhandlechange }) => {
   const [audioFile, setAudioFile] = useState(null);
   const [mergedBuffer, setmergedbuffer] = useState(null);
-
-  const sourceNode = useRef(null);
 
   // Function to handle file selection
   const handleFileChange = (event) => {
@@ -104,6 +102,10 @@ const Peerplayer = (song) => {
     console.log("Size of Merged Audio:", mergedSizeMB.toFixed(2), "MB");
 
     setmergedbuffer(mergedbuffer);
+    let temp = qsongs;
+    console.log(temp);
+    temp.push(mergedbuffer);
+    onhandlechange(temp);
 
     // Play the merged audio
     // const source = audiocontext.createBufferSource();
@@ -135,7 +137,7 @@ const Peerplayer = (song) => {
         <input type="file" accept="audio/*" onChange={handleFileChange} />
         <button onClick={mergeAudio}>Merge Audio</button>
         <button onClick={splitAudio}>Split Audio</button>
-        <AudioPlayer mergedBuffer={mergedBuffer} />
+        {qsongs.length != 0 && <AudioPlayer mergedBuffer={qsongs[cursong]} />}
       </div>
     </>
   );

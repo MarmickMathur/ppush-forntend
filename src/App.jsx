@@ -11,6 +11,10 @@ function App() {
   const [tags, settags] = useState([]);
   const [term, seterm] = useState("");
   const [qsongs, setqsongs] = useState([]);
+  const [cursong, setcursong] = useState(0);
+
+  console.log("qsongs :", qsongs);
+  console.log("cursong : ", cursong);
 
   useEffect(() => {
     if (term != "") {
@@ -64,7 +68,28 @@ function App() {
               <Addsong />
             </div>
             <div>
-              <SongQueue songs={qsongs} />
+              <Musicsplitter
+                cursong={cursong}
+                qsongs={qsongs}
+                onhandlechange={setqsongs}
+              />
+              <button
+                onClick={() => {
+                  setcursong((cursong + 1) % qsongs.length);
+                }}
+              >
+                next
+              </button>
+              <button
+                onClick={() => {
+                  setcursong(
+                    (((cursong - 1) % qsongs.length) + qsongs.length) %
+                      qsongs.length
+                  );
+                }}
+              >
+                prev
+              </button>
             </div>
           </motion.div>
         </div>
