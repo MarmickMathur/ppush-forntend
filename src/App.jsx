@@ -5,7 +5,7 @@ import SongQueue from "./components/songqueue";
 import Songlist from "./components/songlist";
 import Musicsplitter from "./components/musicsplitter";
 import Addsong from "./components/songAdd";
-import { easeInOut, motion, MotionConfig } from "framer-motion";
+import { color, easeInOut, motion, MotionConfig } from "framer-motion";
 
 function App() {
   const [tags, settags] = useState([]);
@@ -17,11 +17,14 @@ function App() {
       settags([]);
     }
   }, [term]);
-  console.log("APP" , qsongs);
+  console.log("APP", qsongs);
 
   return (
     <>
-      <div className="w-screen h-screen">
+      <div
+        style={{ backgroundColor: "rgb(49, 54, 63)" }}
+        className="w-screen h-screen"
+      >
         <div className="relative">
           <Topnav ontagchange={settags} setterm={seterm} />
         </div>

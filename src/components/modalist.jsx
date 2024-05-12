@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
+import Form from "./auth/login";
 
 const Modalist = ({ song }) => {
   const [playlist, setplaylist] = useState([]);
@@ -27,12 +28,24 @@ const Modalist = ({ song }) => {
   };
 
   const addres = async () => {
+    const data = localStorage.getItem("tokens");
+    console.log(data);
+    const newdata = await JSON.parse(data);
+    console.log(newdata);
+    if (!newdata) {
+      alert("pls login");
+      return;
+    }
+    const { accessToken, refreshToken } = newdata;
+    console;
     const res = await axios.post(
       "https://ppusherfinalbackend.onrender.com/user/playlist",
       {
-        name: "test",
-        song: "testsong",
+        name: inputValue,
+        song: song,
         public: true,
+        accessToken: accessToken,
+        refreshToken: refreshToken,
       }
     ); //using input value
     console.log(res);

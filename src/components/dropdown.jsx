@@ -58,14 +58,17 @@ const DropDown = ({ options, selected, label, onSelectedChange }) => {
   return (
     <div className="ui form">
       <div className="field">
-        <label
+        <motion.h3
+          whileHover={{
+            border: 0.2,
+          }}
           onClick={(e) => {
             setopen(!open);
           }}
           className="label"
         >
           {label}
-        </label>
+        </motion.h3>
         <AnimatePresence>
           {open && (
             <motion.div

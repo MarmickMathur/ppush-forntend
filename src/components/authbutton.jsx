@@ -16,7 +16,9 @@ const Authbutton = () => {
         password: data.pass,
       }
     );
-    localStorage.setItem("tokens", res.data);
+    console.log(res.data);
+    const newdata = JSON.stringify(res.data);
+    localStorage.setItem("tokens", newdata);
     console.log("login");
   };
 
@@ -30,7 +32,9 @@ const Authbutton = () => {
           password: data.pass,
         }
       );
-      localStorage.setItem("tokens", res.data);
+      console.log(res.data);
+      const newdata = JSON.stringify(res.data);
+      localStorage.setItem("tokens", newdata);
     } catch (e) {
       console.log("retry the signup");
       console.log(e);

@@ -34,7 +34,11 @@ const Listitem = ({ song, action1, qsongs }) => {
           >
             <BsArrowDownCircleFill className=" scale-125" />
           </motion.button>
-          <PlayModal openModal={openModal} setOpenModal={setOpenModal} />
+          <PlayModal
+            openModal={openModal}
+            song={song}
+            setOpenModal={setOpenModal}
+          />
         </div>
 
         <div

@@ -3,7 +3,8 @@ import { motion, spring } from "framer-motion";
 import Modalform from "./modalform";
 
 const Addsong = () => {
-  const [vis, setvis] = useState(false);
+  const [openModal, setOpenModal] = useState(false);
+
   return (
     <>
       <motion.button
@@ -19,12 +20,15 @@ const Addsong = () => {
           transition: spring,
         }}
         className="  bg-blue-900 text-white rounded-md p-3"
-        onClick={() => setvis(true)}
+        onClick={() => {
+          console.log("fired");
+          setOpenModal(true);
+        }}
       >
         addsong
       </motion.button>
       <div>
-        <Modalform vis={vis} setvis={setvis} />
+        <Modalform openModal={openModal} setOpenModal={setOpenModal} />
       </div>
     </>
   );
