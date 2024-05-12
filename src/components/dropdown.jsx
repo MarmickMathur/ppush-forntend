@@ -59,13 +59,17 @@ const DropDown = ({ options, selected, label, onSelectedChange }) => {
     <div className="ui form">
       <div className="field">
         <motion.h3
-          whileHover={{
-            border: 0.2,
-          }}
           onClick={(e) => {
             setopen(!open);
           }}
-          className="label"
+          whileHover={{
+            backgroundColor: "rgb(238, 238, 238)",
+            color: "rgb(49, 54, 63)",
+          }}
+          style={{
+            borderColor: "rgb(238, 238, 238)",
+          }}
+          className=" p-5 text-4xl"
         >
           {label}
         </motion.h3>
@@ -79,7 +83,7 @@ const DropDown = ({ options, selected, label, onSelectedChange }) => {
                 type: easeInOut,
               }}
               exit={{ opacity: 0 }}
-              className=" round pl-6 max-h-64 overflow-scroll w-full"
+              className=" h-1/4 m-4  round pl-6 max-h-24 overflow-scroll w-full"
             >
               {ops}
             </motion.div>

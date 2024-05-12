@@ -41,44 +41,41 @@ const Leftnav = ({ ontagchange }) => {
         className="z-40 h-screen transition-transform -translate-x-full sm:translate-x-0"
         aria-label="Sidenav"
         style={{
-          color: "rgb(118, 171, 174)",
-          
+          color: "rgb(238, 238, 238)",
         }}
       >
         <div
-          style={{ backgroundColor: "rgb(49, 54, 63)" }}
-          className="overflow-y-auto py-5 px-3 h-full "
+          style={{ backgroundColor: "transparent" }}
+          className="overflow-y-auto  py-5 px-3 h-full "
         >
-          <ul className="space-y-2">
-            <motion.li layout>
-              <DropDown
-                key={"playlists"}
-                options={artist}
-                selected={playlist}
-                label={"playlist"}
-                onSelectedChange={setplaylist}
-              />
-            </motion.li>
-            <motion.li layout>
-              <DropDown
-                key={"mylib"}
-                options={gnr}
-                selected={ganre}
-                label={"genre"}
-                onSelectedChange={setganre}
-              />
-            </motion.li>
+          <motion.div layout>
+            <DropDown
+              key={"playlists"}
+              options={artist}
+              selected={playlist}
+              label={"playlist"}
+              onSelectedChange={setplaylist}
+            />
+          </motion.div>
+          <motion.div layout>
+            <DropDown
+              key={"mylib"}
+              options={gnr}
+              selected={ganre}
+              label={"genre"}
+              onSelectedChange={setganre}
+            />
+          </motion.div>
 
-            <motion.li layout>
-              <DropDown
-                key={"mylib"}
-                options={gnr}
-                selected={ganre}
-                label={"artist"}
-                onSelectedChange={setganre}
-              />
-            </motion.li>
-          </ul>
+          <motion.div layout>
+            <DropDown
+              key={"mylib"}
+              options={gnr}
+              selected={ganre}
+              label={"artist"}
+              onSelectedChange={setganre}
+            />
+          </motion.div>
         </div>
       </aside>
     </>

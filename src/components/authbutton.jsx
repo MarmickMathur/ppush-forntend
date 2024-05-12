@@ -2,6 +2,7 @@ import { Button, Modal } from "flowbite-react";
 import { useState } from "react";
 import axios from "axios";
 import Form from "./auth/login";
+import { motion } from "framer-motion";
 
 const Authbutton = () => {
   const [openModal, setOpenModal] = useState(false);
@@ -53,7 +54,7 @@ const Authbutton = () => {
           setOpenModal(true);
         }}
       >
-        hello
+        login
       </button>
 
       <Modal show={openModal} onClose={() => setOpenModal(false)}>
